@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title|striptags }}{% endblock %}
+{% block description %}{{ article.summary|striptags }}{% endblock %}
+{% block content %}
+    <section id="content" class="body">
+
+        <div class="row">
+
+            <div class="eleven columns">
+                {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.aside %}
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle ads-responsive"
+                         data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"
+                         data-ad-slot="{{ GOOGLE_ADSENSE.ads.aside }}"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                {% endif %}
+                <header>
+                    <h2 class="entry-title">
+                        <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+                           title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+                    {% import 'translations.html' as translations with context %}
+                    {{ translations.translations_for(article) }}
+                </header>
+                <footer class="post-info">
+                    <!--<abbr class="published" title="{{ article.date.isoformat() }}">-->
+                    <!--{{ article.locale_date }}-->
+                    <!--</abbr>-->
+                    <!--{% if article.authors %}-->
+                        <!--<address class="vcard author">By -->
+                        <!--{% for author in article.authors|sort %}-->
+                            <!--<a class="url fn" href="{{ SITEURL }}/{{ author.url }}"> {{ author }}</a>-->
+                            <!--{% endfor %}-->
+                        <!--</address>-->
+                        <!--{% endif %}-->
+                    <address class="vcard author" style="font-style:italic;margin-bottom:-10px;">
+                        {{ article.locale_date }}
+                        {% if article.author %}
+                            &nbsp;&nbsp;By
+                            <a class="url fn" href="{{ SITEURL }}/{{ article.author.url }}">{{ article.author }}</a>
+                        {% endif %}
+
+                        <span id="busuanzi_container_page_pv">, <i class="icon-eye icon-large"></i><span
+                                id="busuanzi_value_page_pv"></span></span>
+                        &nbsp;&nbsp;<p style="color:red;">本文出自<a href="https://pingbook.top">PingBook Blog</a>,转载请务必保留<a
+                            href="{{ SITEURL }}/{{ article.url }}">文章链接</a></p>
+                    </address>
+                    <hr/>
+                </footer><!-- /.post-info -->
+                {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.article_top %}
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle ads-responsive"
+                         data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"
+                         data-ad-slot="{{ GOOGLE_ADSENSE.ads.article_top }}"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                {% endif %}
+                <div class="entry-content">
+                    {{ article.content }}
+                </div><!-- /.entry-content -->
+                <hr/>
+                <ul style="list-style-type: none;">
+                    {% if article.prev_article %}
+                        <li style="display: inline;margin-left: auto; margin-right: auto;">
+                            ◄&nbsp;&nbsp;<a href="{{ SITEURL }}/{{ article.prev_article.url }}">
+                            {{ article.prev_article.title }}
+                        </a>
+                        </li>
+                    {% endif %}
+                    {% if article.next_article %}
+                        <li style="display: inline;margin-left: 100px; margin-right: auto;">
+                            ►&nbsp;&nbsp;<a href="{{ SITEURL }}/{{ article.next_article.url }}">
+                            {{ article.next_article.title }}
+                        </a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <hr/>
+                <div class="comments">
+                    <h3>Relate Articles</h3>
+                    {% if article.related_posts %}
+                        <ul>
+                            {% for related_post in article.related_posts %}
+                                <li><a href="{{ SITEURL }}/{{ related_post.url }}">{{ related_post.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+                <hr/>
+                {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.article_bottom %}
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle ads-responsive"
+                         data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"
+                         data-ad-slot="{{ GOOGLE_ADSENSE.ads.article_bottom }}"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                {% endif %}
+                {% if DISQUS_SITENAME %}
+                    <div class="comments">
+                        <h3>Comments</h3>
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                            var disqus_identifier = "{{ article.url }}";
+                            (function () {
+                                var dsq = document.createElement('script');
+                                dsq.type = 'text/javascript';
+                                dsq.async = true;
+                                dsq.src = 'https://{{ DISQUS_SITENAME }}.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                            })();
+                        </script>
+                        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments
+                            powered by Disqus</a>.
+                        </noscript>
+                    </div>
+                {% endif %}
+
+            </div><!-- /.eleven.columns -->
+
+            {% include 'sidebar.html' %}
+        </div><!-- /.row -->
+
+
+    </section>
+{% endblock %}

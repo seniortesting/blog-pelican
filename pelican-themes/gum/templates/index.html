@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="content">
+{% block content_title %}
+
+{% endblock %}
+
+
+   <div class="row">
+
+{#       <div class="two columns">#}
+{#           {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.aside %}#}
+{#               <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>#}
+{#               <ins class="adsbygoogle ads-responsive"#}
+{#                    data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"#}
+{#                    data-ad-slot="{{ GOOGLE_ADSENSE.ads.aside }}"></ins>#}
+{#               <script>#}
+{#                   (adsbygoogle = window.adsbygoogle || []).push({});#}
+{#               </script>#}
+{#           {% endif %}#}
+{#       </div>#}
+        <div class="eleven columns">
+                 <ol id="post-list">
+                {% for article in articles_page.object_list %}
+                        <li><article class="hentry">
+                                <header> <h2 class="entry-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2> </header>
+                                <footer class="post-info">
+                                    <abbr class="published" title="{{ article.date.isoformat() }}">
+                                        Posted @ {{ article.locale_date }}, {% if article.authors %}
+                                    By {% for author in article.authors|sort %}
+                                    <a class="url fn" href="{{ SITEURL }}/{{ author.url }}"> {{ author }}</a>
+                                    {% endfor %}
+
+                                    {% endif %}
+                                    </abbr>
+                                </footer><!-- /.post-info -->
+                                <div class="entry-content"> {{ article.summary }} </div><!-- /.entry-content -->
+
+                                <div class="medium primary btn"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}"><i class="icon-arrow-right"></i>Read More<i class="icon-arrow-right"></i></a></div>
+
+
+
+                                <div class="row tag-row">
+                                    {% if article.tags %}
+                                        <span>Tags: </span>
+                                        {% for tag in article.tags %}
+                                            <a class="danger label" href="{{ SITEURL }}/{{ tag.url }}">{{ tag|e }}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+
+
+
+                        </article></li>
+                {% endfor %}
+                </ol><!-- /#posts-list -->
+
+        </div><!-- /.eleven.columns -->
+        
+     {% include 'sidebar.html' %}
+ </div><!-- /.row -->
+
+{% include 'pagination.html' %}
+</section><!-- /#content -->
+{% endblock content %}

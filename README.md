@@ -1,2 +1,2 @@
-# blog-pelican
-blog-pelican
+# PingBook-Theme
+pingbook.top theme code

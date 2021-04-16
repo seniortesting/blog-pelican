@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    {% block head %}
+
+        <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+        <meta charset="utf-8"/>
+        <meta name="description" content="
+
+
+
+
+                {% block description %}{{ 'PingBook是一个专注于开源软件、Linux、大数据、Python、Java、Vuejs、软件测试、测试自动化等的IT科技博客,希望大家一起交流学习!' }}{% endblock description %}">
+        <meta name="keywords"
+              content="Linux,pelican,github,软件测试,测试框架,测试开发,白盒测试,Selenium,Selenium开发,Vuejs,树莓派,自动化测试,编程语言,大数据,人工智能,开源软件,创业,程序员找工作,移动互联网,生活时尚,情感交流,软件测试,技术博客">
+
+
+        {% if FEED_ALL_ATOM %}
+            <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
+                  title="{{ SITENAME }} Full Atom Feed"/>
+        {% endif %}
+        {% if FEED_ALL_RSS %}
+            <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate"
+                  title="{{ SITENAME }} Full RSS Feed"/>
+        {% endif %}
+        {% if FEED_ATOM %}
+            <link href="{{ FEED_DOMAIN }}/{{ FEED_ATOM }}" type="application/atom+xml" rel="alternate"
+                  title="{{ SITENAME }} Atom Feed"/>
+        {% endif %}
+        {% if FEED_RSS %}
+            <link href="{{ FEED_DOMAIN }}/{{ FEED_RSS }}" type="application/rss+xml" rel="alternate"
+                  title="{{ SITENAME }} RSS Feed"/>
+        {% endif %}
+        {% if CATEGORY_FEED_ATOM and category %}
+            <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_ATOM|format(category.slug) }}" type="application/atom+xml"
+                  rel="alternate" title="{{ SITENAME }} Categories Atom Feed"/>
+        {% endif %}
+        {% if CATEGORY_FEED_RSS and category %}
+            <link href="{{ FEED_DOMAIN }}/{{ CATEGORY_FEED_RSS|format(category.slug) }}" type="application/rss+xml"
+                  rel="alternate" title="{{ SITENAME }} Categories RSS Feed"/>
+        {% endif %}
+        {% if TAG_FEED_ATOM and tag %}
+            <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_ATOM|format(tag.slug) }}" type="application/atom+xml"
+                  rel="alternate" title="{{ SITENAME }} Tags Atom Feed"/>
+        {% endif %}
+        {% if TAG_FEED_RSS and tag %}
+            <link href="{{ FEED_DOMAIN }}/{{ TAG_FEED_RSS|format(tag.slug) }}" type="application/rss+xml"
+                  rel="alternate" title="{{ SITENAME }} Tags RSS Feed"/>
+        {% endif %}
+
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+
+        <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/gumby.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/style.css"/>
+        <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/pygment.css"/>
+
+        {% block extra_css %}{% endblock %}
+
+        <script src="{{ SITEURL }}/theme/js/libs/modernizr-2.6.2.min.js"></script>
+
+        {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.page_level_ads %}
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({
+                    google_ad_client: "{{ GOOGLE_ADSENSE.ca_id }}",
+                    enable_page_level_ads: true
+                });
+            </script>
+        {% endif %}
+
+        {% if GOOGLE_ANALYTICS_ID %}
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_ID }}"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '{{ GOOGLE_ANALYTICS_ID }}');
+            </script>
+
+        {% endif %}
+
+        <!--{% if PIWIK_URL%}-->
+            <!--<script type="text/javascript">-->
+            <!--var _paq = _paq || [];-->
+            <!--_paq.push(['trackPageView']);-->
+            <!--_paq.push(['enableLinkTracking']);-->
+            <!--(function() {-->
+            <!--var u=(("https:" == document.location.protocol) ? "https" : "http") + "://{{ PIWIK_URL }}/";-->
+            <!--_paq.push(['setTrackerUrl', u+'piwik.php']);-->
+            <!--_paq.push(['setSiteId', {{ PIWIK_ID }}]);-->
+            <!--var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';-->
+            <!--g.defer=true; g.async=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);-->
+            <!--})();-->
+            <!--</script>-->
+            <!--<noscript><p><img src="http://{{ PIWIK_URL }}/piwik.php?idsite={{ PIWIK_ID }}" style="border:0;" alt="" /></p></noscript>-->
+            <!--{% endif %}-->
+
+    {% endblock head %}
+</head>
+
+<body id="index" class="home">
+
+
+<div class="container">
+    <div class="row">
+        {% if GOOGLE_ADSENSE and GOOGLE_ADSENSE.ads.aside %}
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle ads-responsive"
+                 data-ad-client="{{ GOOGLE_ADSENSE.ca_id }}"
+                 data-ad-slot="{{ GOOGLE_ADSENSE.ads.aside }}"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        {% endif %}
+    </div>
+    <div class="row">
+
+        <header id="banner" class="body">
+
+            <h1><a href="{{ SITEURL }}">{{ SITENAME }} <strong>{{ SITESUBTITLE }}</strong></a></h1>
+        </header><!-- /#banner -->
+
+        <div id="navigation" class="navbar row">
+            <a href="#" gumby-trigger="#navigation &gt; ul" class="toggle"><i class="icon-menu"></i></a>
+            {% if SITE_THUMBNAIL %}
+                <a href="{{ SITEURL }}" class="avatar-container pull-left">
+                    <div class="avatar {% if SITE_THUMBNAIL_TEXT %} animate {% endif %}">
+                        <div class="side"><img src="{{ SITE_THUMBNAIL }}" class="img-responsive"/></div>
+                        {% if SITE_THUMBNAIL_TEXT %}
+                            <div class="side back"><p class="text-center">{{ SITE_THUMBNAIL_TEXT }}</p></div>
+                        {% endif %}
+                    </div>
+                </a>
+            {% endif %}
+            <ul class="columns" style="width: 100%">
+
+                {% for title, link in MENUITEMS %}
+                    {% set active_page = link+'/' == ("/%s"|format(output_file)).strip('index.html') -%}
+{#                    {{ link }} - {{  ("/%s"|format(output_file)).strip('index.html') }}#}
+                    <li {% if active_page %} class="active" {% endif %}><a href="{{ link }}">{{ title }}</a></li>
+                {% endfor %}
+                {% if DISPLAY_PAGES_ON_MENU %}
+                    {% for p in pages %}
+                        <li{% if p == page %} class="active"{% endif %}><a
+                                href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+                    {% endfor %}
+                    {#                    增加搜索功能#}
+
+                {% else %}
+                    {% if DISPLAY_CATEGORIES_ON_MENU %}
+                        {% for cat, null in categories %}
+                            {% set active_category = (cat != category) -%}
+                            <li{% if active_category %} class="active"{% endif %}><a
+                                    href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            <li >
+                <div style="display: block;
+    padding: 0 16px;
+    white-space: nowrap;
+    color: white;
+    text-shadow: 0 1px 2px #191a1b, 0 1px 0 #191a1b;
+    height: 60px;
+    line-height: 58px;
+    font-size: 16px;
+    font-size: 1rem;">
+                <form class="navbar-search" action="{{ SITEURL }}/search.html"
+                      onsubmit="return validateForm(this.elements['q'].value);">
+                    <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input">
+                </form>
+                </div>
+            </li>
+
+            </ul>
+
+
+        </div>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div><!-- /.row -->
+</div><!-- /.container -->
+
+
+<div class="container.nopad bg">
+
+
+    <footer id="credits" class="row" style="margin-bottom: 0px">
+        <div class="seven columns left-center">
+
+            <address id="about" class="vcard body">
+                ©
+                <script>document.write(new Date().getFullYear())</script>
+                PingBook.Inc. Powered by <a href="http://getpelican.com/">Pelican</a>.
+                <!--<br />-->
+                <div>
+                    <span id="busuanzi_container_site_pv">Site Views: <span id="busuanzi_value_site_pv"></span></span>,
+                    <span id="busuanzi_container_site_uv">Total Vistors: <span
+                            id="busuanzi_value_site_uv"></span></span>
+                </div>
+            </address>
+        </div>
+
+
+        <div class="seven columns">
+            <div class="row">
+                <ul class="socbtns">
+
+                    {% if GITHUB_URL %}
+                        <li>
+                            <div class="btn primary"><a href="{{ GITHUB_URL }}" target="_blank">Github</a></div>
+                        </li>
+                    {% endif %}
+
+                    {% if TWITTER_URL %}
+                        <li>
+                            <div class="btn twitter"><a href="{{ TWITTER_URL }}" target="_blank">Twitter</a></div>
+                        </li>
+                    {% endif %}
+
+                    {% if FACEBOOK_URL %}
+                        <li>
+                            <div class="btn facebook"><a href="{{ FACEBOOK_URL }}" target="_blank">Facebook</a></div>
+                        </li>
+                    {% endif %}
+
+                    {% if GOOGLEPLUS_URL %}
+                        <li>
+                            <div class="btn danger"><a href="{{ GOOGLEPLUS_URL }}" target="_blank">Google+</a></div>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+
+{% include 'disqus_script.html' %}
+{% include 'piwik.html' %}
+<script src="{{ SITEURL }}/theme/js/libs/jquery-1.9.1.min.js"></script>
+<script src="{{ SITEURL }}/theme/js/libs/gumby.min.js"></script>
+<script>
+    function validateForm(query) {
+        return (query.length > 0);
+    }
+</script>
+<script async src="{{ SITEURL }}/theme/js/libs/busuanzi.pure.mini.js"></script>
+<script src="{{ SITEURL }}/theme/js/plugins.js"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
